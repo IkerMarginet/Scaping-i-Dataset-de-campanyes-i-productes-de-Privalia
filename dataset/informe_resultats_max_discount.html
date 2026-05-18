@@ -1,0 +1,612 @@
+
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <title>Informe Final (Màxims Descomptes) – Pràctica 2</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; background-color: #f5f5f5; }
+        h1, h2, h3 { color: #2c3e50; }
+        .container { max-width: 1200px; margin: auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        table { border-collapse: collapse; width: 100%; margin: 15px 0; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #2c3e50; color: white; }
+        tr:nth-child(even) { background-color: #f2f2f2; }
+        .figure { text-align: center; margin: 20px 0; }
+        .figure img { max-width: 100%; border-radius: 5px; box-shadow: 0 0 5px rgba(0,0,0,0.2); }
+        .footer { margin-top: 30px; font-size: 0.8em; color: #7f8c8d; text-align: center; }
+        .note { background-color: #d4edda; border-left: 5px solid #28a745; padding: 10px; margin: 15px 0; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>📊 Informe Final (conservant descomptes màxims)</h1>
+    <div class="note">
+        <strong>✓ Nota:</strong> S'ha conservat el descompte més alt per a cada producte (en cas de múltiples extraccions).<br>
+        Descompte màxim al dataset: <strong>87.0%</strong>.
+    </div>
+    <p><strong>Dataset net final:</strong> 2176 productes únics (amb el seu millor descompte).</p>
+
+    <h2>📈 Descomptes per marca</h2>
+    <p>➤ Marca amb <strong>descompte més alt</strong>: Artisan Joaillier (77.7%)</p>
+    <p>➤ Marca amb <strong>descompte més baix</strong>: Ariel (23.5%)</p>
+    <div class="figure">
+        <img src="figures/discount_top15_pie_max.png" alt="Top 15 marques per descompte">
+    </div>
+    <h3>Taula completa de marques</h3>
+    <table border="1" class="dataframe dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>brand_name</th>
+      <th>mean</th>
+      <th>count</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Artisan Joaillier</td>
+      <td>77.7</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>Joyas para mujer</td>
+      <td>77.5</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>Wallity</td>
+      <td>77.1</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>The</td>
+      <td>76.7</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>Stor</td>
+      <td>74.4</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>Muare</td>
+      <td>73.8</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>Ropa de hogar</td>
+      <td>73.6</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>Colchas de Verano</td>
+      <td>72.9</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>Alta joyería</td>
+      <td>72.4</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>Melissa</td>
+      <td>70.7</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>Moda y calzado</td>
+      <td>69.1</td>
+      <td>96</td>
+    </tr>
+    <tr>
+      <td>Vinilicca</td>
+      <td>68.9</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>Gatineau</td>
+      <td>68.8</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>Top Brands Eyewear</td>
+      <td>68.8</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>Laguiole</td>
+      <td>68.6</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>Lady</td>
+      <td>68.2</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>Skunkfunk</td>
+      <td>68.1</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>Sia</td>
+      <td>67.8</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>Spring Camp</td>
+      <td>67.4</td>
+      <td>24</td>
+    </tr>
+    <tr>
+      <td>Muebles y decoración</td>
+      <td>67.3</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>Mobilier</td>
+      <td>66.7</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>Maison</td>
+      <td>66.4</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>Puma</td>
+      <td>66.0</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>Claudie</td>
+      <td>65.9</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>Gaston &amp; Hortense</td>
+      <td>65.5</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>La</td>
+      <td>65.1</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>Innovagoods</td>
+      <td>64.8</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>U.S</td>
+      <td>64.4</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>Shaf</td>
+      <td>63.3</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>Papelería</td>
+      <td>61.1</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>Ear</td>
+      <td>60.4</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>Vans</td>
+      <td>60.2</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>Emporio</td>
+      <td>60.1</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>Roncato</td>
+      <td>59.9</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>WMF</td>
+      <td>59.8</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>Bayton</td>
+      <td>59.4</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>Williot</td>
+      <td>58.3</td>
+      <td>15</td>
+    </tr>
+    <tr>
+      <td>HOFF</td>
+      <td>58.0</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>Hackett</td>
+      <td>57.6</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>Interbaby</td>
+      <td>57.4</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>Ropa de hombre</td>
+      <td>57.4</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>Rip curl</td>
+      <td>57.2</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>Benetton</td>
+      <td>56.9</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>Kilpi</td>
+      <td>56.6</td>
+      <td>23</td>
+    </tr>
+    <tr>
+      <td>Masqmai</td>
+      <td>56.3</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>McGregor</td>
+      <td>56.2</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>SPEEDO</td>
+      <td>55.4</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>Exé</td>
+      <td>55.0</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>Quokka</td>
+      <td>54.7</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>Scotta 1985</td>
+      <td>54.5</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>Pepe</td>
+      <td>54.2</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>Polo Club</td>
+      <td>54.0</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>BOSS</td>
+      <td>53.8</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>Alfombras</td>
+      <td>53.6</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>Alma</td>
+      <td>53.4</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>Dainese</td>
+      <td>53.4</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>Lola</td>
+      <td>52.9</td>
+      <td>50</td>
+    </tr>
+    <tr>
+      <td>Mandarina Duck</td>
+      <td>52.4</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>Champion</td>
+      <td>52.4</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>HUGO</td>
+      <td>50.4</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>Art</td>
+      <td>50.2</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>Pretty Ballerinas</td>
+      <td>50.0</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>Geox</td>
+      <td>49.6</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>Castey</td>
+      <td>49.4</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>New Balance</td>
+      <td>49.0</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>Adidas</td>
+      <td>49.0</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>Sweaty Betty</td>
+      <td>47.6</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>Manicura semipermanente</td>
+      <td>47.4</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>Bears</td>
+      <td>47.0</td>
+      <td>22</td>
+    </tr>
+    <tr>
+      <td>Terre</td>
+      <td>46.8</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>Samsonite</td>
+      <td>46.2</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>Pikolin</td>
+      <td>46.0</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>Cosméticos coreanos</td>
+      <td>45.6</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>Mango</td>
+      <td>44.7</td>
+      <td>50</td>
+    </tr>
+    <tr>
+      <td>Garvalín</td>
+      <td>42.3</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>Lattafa Parfums</td>
+      <td>41.3</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>FENTY BEAUTY</td>
+      <td>40.0</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>NESCAFÉ® Farmers Origins</td>
+      <td>34.8</td>
+      <td>12</td>
+    </tr>
+    <tr>
+      <td>Aceites</td>
+      <td>34.7</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>Haribo</td>
+      <td>32.3</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <td>Artemide</td>
+      <td>30.2</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>Sergent</td>
+      <td>30.1</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>DISNEY</td>
+      <td>28.0</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>NIVEA</td>
+      <td>23.7</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>Ariel</td>
+      <td>23.5</td>
+      <td>25</td>
+    </tr>
+  </tbody>
+</table>
+
+    <h2>📉 Subcategories que s'esgoten abans</h2>
+    <h3>Per marca (subcategoria amb més proporció d'esgotament):</h3>
+    <ul>
+<li><strong>Adidas</strong>: Campus (esgotament: 66.7%)</li><li><strong>Art</strong>: Sandalias de cuña (esgotament: 66.7%)</li><li><strong>BOSS</strong>: Hombre - ropa (esgotament: 41.7%)</li><li><strong>Benetton</strong>: Camisas y blusas (esgotament: 21.4%)</li><li><strong>Champion</strong>: Hombre (esgotament: 45.5%)</li><li><strong>Claudie</strong>: Vestidos largos (esgotament: 66.7%)</li><li><strong>Emporio</strong>: Beachwear (esgotament: 50.0%)</li><li><strong>Exé</strong>: Sandalias de tacón alto (esgotament: 36.4%)</li><li><strong>Garvalín</strong>: Sneakers (esgotament: 37.5%)</li><li><strong>Geox</strong>: Mocasines y bailarinas (esgotament: 100.0%)</li><li><strong>HOFF</strong>: Sandalias (esgotament: 50.0%)</li><li><strong>HUGO</strong>: Hombre - ropa (esgotament: 20.0%)</li><li><strong>Hackett</strong>: Pantalones y bermudas (esgotament: 45.5%)</li><li><strong>Kilpi</strong>: Mujer (esgotament: 33.3%)</li><li><strong>La</strong>: Juegos de sábanas (esgotament: 16.7%)</li><li><strong>Lady</strong>: Monos (esgotament: 12.5%)</li><li><strong>Lola</strong>: Sandalias planas (esgotament: 100.0%)</li><li><strong>Mango</strong>: Flared y Mom (esgotament: 55.6%)</li><li><strong>Melissa</strong>: Bikinis (esgotament: 80.0%)</li><li><strong>Moda y calzado</strong>: Geox (esgotament: 100.0%)</li><li><strong>New Balance</strong>: Calzado deportivo y chanclas (esgotament: 33.3%)</li><li><strong>Polo Club</strong>: Hombre (esgotament: 30.0%)</li><li><strong>Pretty Ballerinas</strong>: Tacón (esgotament: 100.0%)</li><li><strong>Puma</strong>: Ropa de baño (esgotament: 62.5%)</li><li><strong>Rip curl</strong>: Camisetas y camisas (esgotament: 35.7%)</li><li><strong>Ropa de hogar</strong>: Ropa de cama (esgotament: 7.1%)</li><li><strong>Ropa de hombre</strong>: Conjuntos y trajes (esgotament: 45.5%)</li><li><strong>SPEEDO</strong>: Mujer (esgotament: 40.0%)</li><li><strong>Scotta 1985</strong>: Camisetas (esgotament: 42.9%)</li><li><strong>Sergent</strong>: Pijamas y accesorios (esgotament: 40.0%)</li><li><strong>Skunkfunk</strong>: The spring capsule (esgotament: 40.0%)</li><li><strong>Spring Camp</strong>: Ropa de hombre (esgotament: 25.0%)</li><li><strong>Sweaty Betty</strong>: Camisetas y tops (esgotament: 20.0%)</li><li><strong>The</strong>: Jerseís y cárdigans (esgotament: 66.7%)</li><li><strong>U.S</strong>: Hombre (esgotament: 25.0%)</li><li><strong>Vans</strong>: Calzado - adulto (esgotament: 50.0%)</li><li><strong>Williot</strong>: Camisas (esgotament: 26.7%)</li>
+    </ul>
+    <h3>Globalment, la subcategoria que s'esgota abans és:</h3>
+    <p><strong>Tacón</strong> (proporció d'esgotament: 100.0%)</p>
+    <div class="figure">
+        <img src="figures/out_by_subcategory_max.png" alt="Esgotament per subcategoria">
+    </div>
+
+    <h2>🏷️ Marques amb més productes</h2>
+    <p>➤ <strong>Moda y calzado</strong> és la marca amb més productes (96 productes).</p>
+    <table border="1" class="dataframe dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>brand_name</th>
+      <th>count</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Moda y calzado</td>
+      <td>96</td>
+    </tr>
+    <tr>
+      <td>Lola</td>
+      <td>50</td>
+    </tr>
+    <tr>
+      <td>Mango</td>
+      <td>50</td>
+    </tr>
+    <tr>
+      <td>Aceites</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>Adidas</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>Alfombras</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>Alma</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>Alta joyería</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>Ariel</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>Art</td>
+      <td>25</td>
+    </tr>
+  </tbody>
+</table>
+
+    <h2>📏 Varietat de talles</h2>
+    <p>➤ Marca amb més varietat de talles per producte: <strong>Champion</strong> 
+    (8.9 talles per producte)</p>
+    <div class="figure">
+        <img src="figures/size_variety_by_brand_max.png" alt="Varietat de talles per marca">
+    </div>
+    <h3>Top 10 combinacions marca + subcategoria amb més varietat:</h3>
+    <table border="1" class="dataframe dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>brand_name</th>
+      <th>subcategory</th>
+      <th>avg_num_sizes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>La</td>
+      <td>Bajeras</td>
+      <td>12.166667</td>
+    </tr>
+    <tr>
+      <td>Geox</td>
+      <td>Mujer - del 5 al</td>
+      <td>10.571429</td>
+    </tr>
+    <tr>
+      <td>Adidas</td>
+      <td>Gazelle</td>
+      <td>10.230769</td>
+    </tr>
+    <tr>
+      <td>Garvalín</td>
+      <td>Garvalín - Niña</td>
+      <td>9.000000</td>
+    </tr>
+    <tr>
+      <td>Champion</td>
+      <td>Hombre</td>
+      <td>9.000000</td>
+    </tr>
+    <tr>
+      <td>Champion</td>
+      <td>Camisetas</td>
+      <td>8.857143</td>
+    </tr>
+    <tr>
+      <td>Garvalín</td>
+      <td>Sandalias</td>
+      <td>8.571429</td>
+    </tr>
+    <tr>
+      <td>Geox</td>
+      <td>Sneakers con plataforma y cuña</td>
+      <td>8.222222</td>
+    </tr>
+    <tr>
+      <td>Lola</td>
+      <td>Verde y amarillo</td>
+      <td>8.000000</td>
+    </tr>
+    <tr>
+      <td>Melissa</td>
+      <td>Estampados</td>
+      <td>8.000000</td>
+    </tr>
+  </tbody>
+</table>
+
+    <div class="footer">
+        Informe generat conservant el descompte màxim per producte – Pràctica 2.
+    </div>
+</div>
+</body>
+</html>

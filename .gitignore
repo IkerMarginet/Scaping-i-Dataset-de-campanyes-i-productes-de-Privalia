@@ -17,8 +17,10 @@ scripts/
 # dataset/
 debug/
 *.log
-*.html
-*.png
+# *.html
+# *.png
+
+docs/
 
 # VS Code
 .vscode/
