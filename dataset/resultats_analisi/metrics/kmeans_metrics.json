@@ -1,0 +1,28 @@
+{
+    "method": "K-Means",
+    "n_clusters": 3,
+    "silhouette_score": 0.4827799449068279,
+    "centroids": [
+        {
+            "cluster": 0,
+            "original_price": 96.64899132321048,
+            "discount_percentage": 44.463123644251624
+        },
+        {
+            "cluster": 1,
+            "original_price": 211.998318219291,
+            "discount_percentage": 66.54410552349546
+        },
+        {
+            "cluster": 2,
+            "original_price": 3689.263170731708,
+            "discount_percentage": 68.29268292682927
+        }
+    ],
+    "cluster_sizes": {
+        "0": 922,
+        "1": 1213,
+        "2": 41
+    },
+    "inertia": 1403.1555899301652
+}

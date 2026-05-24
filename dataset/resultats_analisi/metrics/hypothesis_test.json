@@ -1,0 +1,17 @@
+{
+    "test_name": "Mann-Whitney U test",
+    "brand1": "Moda y calzado",
+    "brand2": "Lola",
+    "n1": 96,
+    "n2": 50,
+    "mean1": 69.05208333333333,
+    "mean2": 52.94,
+    "std1": 7.783071767647455,
+    "std2": 4.991462098178351,
+    "normality_p1": 0.24440301379663604,
+    "normality_p2": 2.3694810503784534e-05,
+    "levene_p": 0.00025052856114280797,
+    "statistic": 4613.0,
+    "p_value": 6.052601520526706e-20,
+    "significant_difference": true
+}

@@ -1,125 +1,133 @@
-# Scraper de Privalia 🛍️📊
+# Projecte Privalia: Web-Scraping, Neteja i Anàlisi Avançada de Dades 🛍️📊
 
-Aquest projecte és un Web Scraper automatitzat dissenyat per extreure dades sobre campanyes i productes de la plataforma de vendes privades [Privalia](https://es.privalia.com/). Ha estat desenvolupat com a part de la **Pràctica 1 (PRACT1)** de l'assignatura *Tipologia i Cicle de vida de les dades* del Màster en Data Science.
+Aquest projecte és un cas pràctic complet que abasta tot el cicle de vida de la dada: des de l'extracció automatitzada (*web-scraping*) de dades del lloc web de [Privalia](https://es.privalia.com/) fins a la seva posterior integració, neteja, modelització avançada i contrast d'hipòtesis estadístiques.
 
-## 👥 Integrants del grup
-- **Iker Marginet Ballester**
-- **Albert Pérez Costa**
+Ha estat desenvolupat en el marc del **Màster en Data Science** de la **Universitat Oberta de Catalunya (UOC)** per a l'assignatura *Tipologia i Cicle de vida de les dades* (Pràctica 1 i Pràctica 2).
 
-## 📝 Descripció
+---
 
-L'objectiu principal d'aquesta eina és la creació d'un *dataset* estructurat (basa de dades) apte per a l'anàlisi de dades, extraient:
-- **Campanyes actuals**: Noms de camps (marques), nombre de productes totals i únics, categories disponibles i data de finalització.
-- **Productes**: Identificadors, noms, preus originals i rebaixats, percentatge de descompte, colors, disponibilitat de talles, imatges associades i subcategories o seccions.
+## 👥 Membres de l'equip
+*   **Iker Marginet Ballester**
+*   **Albert Pérez Costa**
 
-El projecte fa ús de tècniques de *web scraping* combinant la interacció amb navegadors (degut a la naturalesa altament dinàmica de la web principal i els múltiples *scrolls* necessaris per carregar els objectes a causa del *lazy loading*) amb l'anàlisi estàtic del DOM.
+---
 
-## 🗂️ Estructura i Descripció dels Arxius del Repositori
+## 🗂️ Estructura del Repositori i Descripció del Projecte
+
+A continuació, es detalla l'estructura organitzativa i endreçada del repositori de cara al lliurament final:
 
 ```text
 privalia-scraping/
-├── dataset/                     # Directori on es desen els resultats en brut de les dades extretes
-│   ├── privalia_campaigns.csv   # Dataset amb el meta-registre de les marques i campanyes recollides
-│   └── privalia_products.csv    # Dataset amb els detalls exhaustius de tota la roba i productes
-├── docs/                        # Documentació tècnica i arxius auxiliars generats pel codi
-│   └── imatges/                 # Captures de pantalla i HTML de depuració
-├── source/                      # Codi font central (Scripts complets de l'aplicació en Python)
-│   ├── main.py                  # Script principal exclusiu d'entrada que orquestra la feina del scraper
-│   ├── config.py                # Arxiu de paràmetres, límits i credencials (configuració)
-│   ├── crawler.py               # Lògica d'automatització robòtica i del navegador per Selenium
-│   ├── parser.py                # Mòdul pel sanejament de strings i mapeig d'etiquetes amb BeautifulSoup
-│   └── storage.py               # Mòdul de gestió de fitxers i funcions d'escriptura als llistats CSV
-├── requirements.txt             # Llistat de biblioteques base i dependències (BeautifulSoup, Selenium)
-└── README.md                    # Fitxer informatiu i manual de repositori (aquest actual arxiu)
+├── dataset/                           # Directori central de dades i gràfics
+│   ├── figures/                       # Gràfics de la fase d'anàlisi exploratòria (EDA) inicial
+│   │   ├── discount_top15_pie_max.png # Distribució de descomptes de les top marques (gràfic pastís)
+│   │   ├── out_by_subcategory_max.png # Rati d'esgotament de talles per subcategoria (gràfic barres)
+│   │   └── size_variety_by_brand_max.png # Varietat de talles mitjana per producte per marca
+│   ├── resultats_analisi/             # Sortides de la fase d'anàlisi avançada i models
+│   │   ├── figures/                   # Gràfics de models (Elbow method, Clústers, ROC, etc.)
+│   │   └── metrics/                   # Fitxers JSON i CSV amb mètriques formals obtingudes
+│   ├── informe_resultats_max_discount.html # Informe exploratori HTML auto-generat pel script de neteja
+│   ├── privalia_campaigns.csv         # Dataset original de campanyes extretes (Pràctica 1)
+│   ├── privalia_products.csv          # Dataset original de productes extrets (Pràctica 1)
+│   └── privalia_clean_max_discount.csv # Dataset final netejat, unificat i deduplicat (Pràctica 2)
+├── docs/                              # Depuració i captures auxiliars del web-scraper
+├── practica2_code/                    # Codi font de la Pràctica 2 (Neteja i Anàlisi de Dades)
+│   ├── clean-dataset.py               # Script de neteja, gestió de nuls, outliers i enginyeria de variables
+│   └── analisis_privalia.py           # Script d'anàlisi avançada (contrastos, K-Means i Random Forest)
+├── source/                            # Codi font de la Pràctica 1 (Orquestració del Web-Scraper)
+│   ├── main.py                        # Executor principal interactiu del crawler i parseig
+│   ├── config.py                      # Configuracions, credencials i limits de descàrrega
+│   ├── crawler.py                     # Interacció robòtica per Selenium (scroll dinàmic)
+│   ├── parser.py                      # Extracció estàtica d'etiquetes mitjançant BeautifulSoup
+│   └── storage.py                     # Gestió de l'emmagatzematge i escriptura en CSV
+├── requirements.txt                   # Llistat de biblioteques base i dependències de Python
+└── README.md                          # Fitxer informatiu complet del projecte (aquest fitxer)
 ```
 
-## ⚙️ Requisits
+---
 
-L'entorn requereix tenir instal·lat **Python 3.8+** a la teva màquina local i instal·lar les llibreries del llistat de requeriments de base.
+## ⚙️ Requisits i Instal·lació
 
-Dependències i llibreries clau:
-- `selenium` (per controlar les interaccions del navegador web i rendir l'HTML)
-- `beautifulsoup4` (per al processament i mapeig ràpid dels arbres i etiquetes de l'HTML)
+El projecte s'ha programat íntegrament en **Python 3.8+**. Per a fer-lo funcionar:
 
-*\*Nota:* Selenium requereix la interacció amb el teu propi navegador local (per exemple Chrome, Edge) i utilitzarà els seus propis Webdrivers que avui dia se solen carregar o autogestionar.
-
-## 🚀 Instal·lació
-
-1. **Clona o adquireix aquest repositori / carpeta**.
-2. **Navega a la carpeta principal del projecte** des del teu intèrpret o línia de comandes:
+1. **Clona aquest repositori** i accedeix a la carpeta principal:
    ```bash
    cd privalia-scraping
    ```
-3. *(Opcional)* **Crea un entorn virtual (venv), altament recomanat**:
+2. **Crea i activa un entorn virtual** (recomanat):
    ```bash
-   # Creació entorn
+   # Creació
    python -m venv venv
-   
-   # Activació de l'entorn (Windows)
+   # Activació (Windows)
    venv\Scripts\activate
-   
-   # Activació de l'entorn (Mac/Linux)
+   # Activació (Mac/Linux)
    source venv/bin/activate
    ```
-4. **Instal·la les dependències**:
+3. **Instal·la totes les dependències necessàries**:
    ```bash
    pip install -r requirements.txt
    ```
-5. **Configuració Extra**: Pots editar el fitxer `source/config.py` directament per a canviar i gestionar el compte d'accés (per defecte usuari base per realitzar proves) i modificar així els diferents límits de l'scraper o els retards generats: com a `MAX_CAMPAIGNS_TO_VISIT`, `MAX_PRODUCTS_PER_CAMPAIGN_TO_VISIT` i més.
 
-## 🖥️ Ús, Paràmetres i Exemples Replicables
+*Nota: Per a la Pràctica 1 (web-scraping), es requereix tenir instal·lat un navegador compatible amb Selenium (com Google Chrome o Edge).*
 
-L'execució se centralitza en l'ús del fitxer principal `main.py` de la carpeta pròpia de `source` mentre que les adaptacions prèvies depenen absolutament de `config.py`.
+---
 
-### Paràmetres del Script
-Abans d'executar l'aplicació, obre l'arxiu `source/config.py` on podràs controlar estretament variables que actuaran com a paràmetres clau introduïts a l'hora del disseny:
+## 🖥️ Execució i Ús de les Eines
 
-* **Credencials de servei:** `PRIVALIA_EMAIL` i `PRIVALIA_PASSWORD` estableixen el mètode d'autenticació inicialment demanat i necessari del sistema. 
-* **Paràmetres d'Escaneig i Paginació:**
-  * `MAX_CAMPAIGNS_TO_VISIT`: Nombre màxim de campanyes global (marques) a processar seqüencialment des de la pàgina principal.
-  * `MAX_SUBPAGES_PER_CAMPAIGN`: Límit del topall per a les quantitats de subcategories ("Vestits", "Sabates") a desplaçar.
-  * `MAX_PRODUCTS_PER_CAMPAIGN_TO_VISIT`: Límits del topall per escollir l'acumulat absolut de productes parsejats sobre tota l'activitat d'una campanya.
-* **Tolerància i Control d'Avaries:** `REQUEST_DELAY_SECONDS` incrementa o rebaixa el descans entre processos. `TIMEOUT_SECONDS` establirà els blocs tolerats.
+### 1. Neteja de dades (Pràctica 2)
+L'script de neteja realitza la unió de campanyes i productes, neteja els nuls, analitza outliers, converteix formats bruts, genera variables d'enginyeria de característiques (`num_sizes`, `has_out`) i crea els gràfics EDA descriptius primaris.
 
-### Exemple 1: Execució massiva programada per defecte
+Per a executar-lo:
+```bash
+python practica2_code/clean-dataset.py
+```
+Aquest script:
+*   Llegirà `dataset/privalia_campaigns.csv` i `dataset/privalia_products.csv`.
+*   Generarà el fitxer unificat net a `dataset/privalia_clean_max_discount.csv`.
+*   Generarà les figures exploratòries a `dataset/figures/`.
+*   Generarà l'informe gràfic interactiu a `dataset/informe_resultats_max_discount.html`.
 
-Per dur a terme aquest exemple es farà ús de formats relaxats basats en voler capturar màxima informació, el codi ve així pel cap baix. Fent via al terminal per on es vulgui actuar:
+### 2. Anàlisi Avançada i Models (Pràctica 2)
+L'script d'anàlisi de dades realitza el contrast d'hipòtesi no paramètric (Mann-Whitney U), el clustering per perfils de preu (K-Means) i la classificació predictiva de gangues (Random Forest).
 
+#### Mode Interactiu (Menú de consola)
+```bash
+python practica2_code/analisis_privalia.py
+```
+Se't demanarà triar quins models vols entrenar i avaluar (només supervisat, només no supervisat, o l'anàlisi complet).
+
+#### Mode Automatitzat (Útil per a execucions des de terminals o plataformes d'integració)
+Pots passar directament per paràmetre l'opció que vulguis per tal d'evitar el menú de consola:
+```bash
+# Executa l'anàlisi complet directament (opció 3: models + contrast) i desa els resultats
+python practica2_code/analisis_privalia.py 3
+```
+
+Aquest script:
+*   Llegirà el dataset net `dataset/privalia_clean_max_discount.csv` (i cridarà automàticament a `clean-dataset.py` si no existís).
+*   Emmagatzemarà totes les visualitzacions avançades (Boxplot+Violin, Corba del Colze, Clústers, Corba ROC, Matrius de confusió percentuals i Feature Importances) a `dataset/resultats_analisi/figures/`.
+*   Desarà totes les mètriques estructurades de rendiment en fitxers JSON/CSV i un resum textual d'execució a `dataset/resultats_analisi/metrics/`.
+
+### 3. Web-Scraper (Pràctica 1)
+Per arrencar el procés d'extracció dinàmica de dades de Privalia:
 ```bash
 python source/main.py
 ```
+*(Es faran preguntes sobre si es vol activar el mode depuració o si es vol reprendre l'extracció per a evitar duplicar marques ja descarregades)*.
 
-**(Al terminal intern se'ns faran inicialment dues preguntes curtes de configuració del menú:
-1. Si volem activar el mode de depuració (recomanat premeu Enter per triar defecte `n`, fet que l'activarà en mode silenciós limitant el guardat de HTML i captures innecessàries).
-2. Si volem duplicar campanyes ja existents (aquí és recomanable polsar Enter per defecte `n`, el que permetrà reprendre l'execució allà on la teníem en el cas d'aturades, mantenint les dades que ja existien als nostres CSV sense tornar a escanejar de zero marques que ja havíem recollit).**
-
-### Exemple 2: Execució ràpida delimitada al testeig (1 Campanya, 5 Productes)
-
-Viatgem i ens adrecem cap a dins de `source/config.py` per afegir i canviar les limitacions variables des de l'inici del fitxer a valors controlats:
-
-```python
-MAX_CAMPAIGNS_TO_VISIT = 1
-MAX_PRODUCTS_PER_CAMPAIGN_TO_VISIT = 5
-```
-
-Llavors tornant per guardar el daltibaix encenem altra volta utilitzant mode de depuració (`s` a la pregunta de selecció inicial interactiva) afegint un control més de traça d'assessorament:
-
-```bash
-python source/main.py
-```
-*(Es farà i desaran 1 única campanya global juntament amb només un total màx de 5 productes i exportarà captures HTML en directe a `docs/imatges` per si calia fer un diagnòstic de visualització)*
-
+---
 
 ## 📊 Dataset i DOI de Zenodo
 
-El *dataset* generat durant aquesta pràctica i vinculat al procediment avaluatori roman penjat d'acord amb els compromisos pel projecte educatiu sota un registre i preservació lliure des de la plataforma de dades obertes d'investigació tipus Zenodo per assegurar la possibilitat d'explorar, fer servir i fomentar tot un procés replicable.
+El dataset generat durant el projecte es troba preservat i catalogat a la plataforma de dades obertes d'investigació **Zenodo** per garantir-ne la replicabilitat completa de la recerca:
 
-* **DOI de Zenodo Dataset**: `[https://doi.org/10.5281/zenodo.19441893]`
-
-## ⚖️ Consideracions Ètiques y d'Ús
-
-Les dades recavades són únicament dirigides a ús pedagògic orientat i estrictes a les indicacions d'assignatures pràctiques universitàries. 
-S'han utilitzat retards d'execuciò intencis i obligatoris en la descàrrega mitjançant pauses constants temporitzades que limiten els problemes de sobresaturació al tràfic de la pàgina servidora evitant per darrere danys a aquesta plataforma. Tot plegat permetent emular constantment i fidel al trànsit que causaria directament des del ratolí un o diversos usuaris de ritme estàndard, evitant aturades tècniques o dades massives sense consentiment en el cas d'ús.
+*   **DOI del Dataset**: `[https://doi.org/10.5281/zenodo.19441893]`
 
 ---
-**PRACT1 - Tipologia i Cicle de vida de les dades | Master en Data Science**
+
+## ⚖️ Consideracions Ètiques i d'Ús
+
+Les dades recollides s'utilitzen exclusivament amb finalitats acadèmiques i didàctiques. El *scraper* dissenyat a la Pràctica 1 respecta polítiques ètiques de descàrrega mitjançant l'aplicació de retards constants i pauses temporitzades que eviten el tràfic abusiu sobre la plataforma de Privalia, emulant el comportament d'un usuari estàndard.
+
+---
+**Tipologia i Cicle de vida de les dades | Màster en Data Science | UOC**
